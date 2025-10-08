@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Future.delayed(const Duration(milliseconds: 3000), () {
+    //   Navigator.pushAndRemoveUntil(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => const StartScreen()),
+    //         (route) => false,
+    //   );
+    // });
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(child: Image.asset("assets/icons/logo.png",width: 200,height: 200,)),
+      ),
+    );
+  }
+}
