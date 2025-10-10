@@ -1,0 +1,160 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payez_pay/features/authenticate/presentation/pages/sign_up.dart';
+import 'package:payez_pay/features/home/presentation/screens/home_screen.dart';
+
+import '../../../../config/utils/app_colors.dart';
+import '../../../../widgets/custom_button.dart';
+import '../../../../widgets/custom_text_field.dart';
+import '../manager/auth_cubit.dart';
+
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthSuccess) {
+            // Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => const HomeView(),
+            //     ));
+          } else if (state is AuthFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error)),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is AuthLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            return Stack(
+              children: [
+                // Container(
+                //   decoration: const BoxDecoration(
+                //     image: DecorationImage(
+                //       image: AssetImage(
+                //         "assets/images/food.jpg",
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: 130,
+                        width: 138,
+                        child: Image.asset(
+                          "assets/icons/logo.png",
+                          width: 134,
+                          height: 134,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      CustomTextField(
+                          controller: emailController, hintText: "Email"),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      CustomTextField(
+                          isPassword: true,
+                          controller: passwordController, hintText: "Password"),
+                      InkWell(
+                          onTap: () async {
+                            try {
+                              await FirebaseAuth.instance
+                                  .sendPasswordResetEmail(
+                                  email: emailController.text);
+                            } catch (e) {
+                              if (kDebugMode) {
+                                print(e.toString());
+                              }
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.topRight,
+                            margin: const EdgeInsets.all(10),
+                            child: const Text(
+                              "Forget Password ?",
+                              style: TextStyle(color: AppColors.blackSecondary),
+                            ),
+                          )),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      //sign in button
+                      Center(
+                        child: CustomButton(
+                          title: "Login",
+                          onTap: () {
+                            // context.read<AuthCubit>().signIn(
+                            //       emailController.text,
+                            //       passwordController.text,
+                            //     );
+
+                            Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),), (
+                                  route) => true,);
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const Divider(),
+                      Row(
+                        children: [
+                          const Text("Don't have an account",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              )),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUp(),
+                                ), (route) => true,);
+                            },
+                            child: const Text(
+                              "Create!",
+                              style: TextStyle(
+                                color: Color(
+                                  0xff1F4C6B,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          }
+        },
+      ),
+    );
+  }
+}
