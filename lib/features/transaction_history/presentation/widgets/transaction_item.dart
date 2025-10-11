@@ -5,7 +5,6 @@ import 'package:payez_pay/data/transaction_model.dart';
 
 class TransactionItem extends StatelessWidget {
   final TransactionModel transaction;
-
   const TransactionItem({super.key, required this.transaction});
 
   @override

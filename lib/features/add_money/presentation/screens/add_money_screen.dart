@@ -14,14 +14,125 @@ class AddMoneyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
+    void showBottomSheet() {
+      showModalBottomSheet(
+        enableDrag: false,
+        context: context,
+        builder: (context) {
+          return DraggableScrollableSheet(
+            initialChildSize: 0.80,
+            minChildSize: 0.50,
+            expand: false,
+            maxChildSize: 1,
+            builder: (BuildContext context, ScrollController scrollController) {
+              return Container(
+                padding: const EdgeInsets.all(14),
+                height: 140,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                ),
+                child: ListView(
+                  controller: scrollController,
+                  children: [
+                    Center(
+                      child: Container(
+                        height: 6,
+                        width: 42,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      "Add Money Confirmation",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 12.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Top up ID",
+                          style: theme.titleSmall!.copyWith(color: Colors.grey),
+                        ),
+                        Text(
+                          "1000000XXX",
+                          style:theme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Amount",
+                          style: theme.titleSmall!.copyWith(color: Colors.grey),
+                        ),
+                        Text(
+                          "${balanceController.text}EGP",
+                          style:theme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Top up fee",
+                          style: theme.titleSmall!.copyWith(color: Colors.grey),
+                        ),
+                        Text(
+                          "Free",
+                          style:theme.titleSmall!.copyWith(color: AppColors.primaryDeepOceanBlue),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Time",
+                          style: theme.titleSmall!.copyWith(color: Colors.grey),
+                        ),
+                        Text(
+                          "${DateTime.now()}",
+                          style:theme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 40.h),
+                    PrimaryButton(title: "Confirm Top Up",color: AppColors.secondaryAquaBreeze,)
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("Top Up Balance", style: theme.titleLarge),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          SizedBox(height: 50.h,),
           Column(
             children: [
               Padding(
@@ -65,10 +176,16 @@ class AddMoneyScreen extends StatelessWidget {
               ),
             ],
           ),
-          PrimaryButton(
-            title: "Continue",
-            onTap: () {},
-            color: AppColors.secondaryAquaBreeze,
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: PrimaryButton(
+              title: "Continue",
+              onTap: () {
+                showBottomSheet();
+              },
+              color: AppColors.secondaryAquaBreeze,
+            ),
           ),
         ],
       ),

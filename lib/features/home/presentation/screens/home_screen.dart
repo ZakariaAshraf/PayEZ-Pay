@@ -8,6 +8,7 @@ import 'package:payez_pay/features/home/presentation/widgets/home_screen_button.
 import 'package:payez_pay/features/home/presentation/widgets/refer_section.dart';
 import 'package:payez_pay/features/home/presentation/widgets/transactions_section.dart';
 import 'package:payez_pay/features/home/presentation/widgets/user_info_section.dart';
+import 'package:payez_pay/features/pay_bills/presentation/screens/pay_bills_screen.dart';
 
 import '../../../transaction_history/presentation/screens/transaction_screen.dart';
 
@@ -38,7 +39,10 @@ class HomeScreen extends StatelessWidget {
               HomeScreenButton(
                 title: "Pay Bills",
                 iconData: Icons.payment,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PayBillsScreen(),));
+
+                },
               ),
             ],
           ),
