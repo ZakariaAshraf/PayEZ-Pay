@@ -25,34 +25,33 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // Future<void> saveUserData({
-  //   required String name,
-  //   required String phone,
-  //    String? nationality,
-  // }) async {
-  //   try {
-  //     String userId = FirebaseAuth.instance.currentUser!.uid;
-  //     await FirebaseFirestore.instance.collection("users").doc(userId).set({
-  //       'name': name,
-  //       'phone': phone,
-  //       'createdAt': FieldValue.serverTimestamp(),
-  //       'nationality': nationality ?? "EGY",
-  //     });
-  //   } catch (e) {
-  //     emit(AuthFailure("Error saving user data: $e"));
-  //   }
-  // }
+  Future<void> saveUserData({
+    required String name,
+    required String phone,
+    double? balance,
+  }) async {
+    try {
+      String userId = FirebaseAuth.instance.currentUser!.uid;
+      await FirebaseFirestore.instance.collection("users").doc(userId).set({
+        'name': name,
+        'phone': phone,
+        'createdAt': FieldValue.serverTimestamp(),
+        'balance': 0.0,
+      });
+    } catch (e) {
+      emit(AuthFailure("Error saving user data: $e"));
+    }
+  }
 
   Future<void> register(
       {required String email,
       required String password,
       required String phone,
-      String? nationality,
       required String name}) async {
     emit(AuthLoading());
     try {
       final user = await registerUseCase.execute(email, password);
-       // await saveUserData(name: name, phone: phone, nationality: nationality);
+       await saveUserData(name: name, phone: phone);
       emit(AuthSuccess(user: user!));
     } catch (e) {
       emit(AuthFailure(e.toString()));

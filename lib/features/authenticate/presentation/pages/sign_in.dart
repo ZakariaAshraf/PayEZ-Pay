@@ -24,19 +24,17 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccess) {
-            // Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => const HomeView(),
-            //     ));
-          } else if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
             );
+          } else if (state is AuthFailure) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.error)));
           }
         },
         builder: (context, state) {
@@ -67,82 +65,72 @@ class _SignInState extends State<SignIn> {
                           height: 134,
                         ),
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 30),
                       CustomTextField(
-                          controller: emailController, hintText: "Email"),
-                      const SizedBox(
-                        height: 30,
+                        controller: emailController,
+                        hintText: "Email",
                       ),
+                      const SizedBox(height: 30),
                       CustomTextField(
-                          isPassword: true,
-                          controller: passwordController, hintText: "Password"),
+                        isPassword: true,
+                        controller: passwordController,
+                        hintText: "Password",
+                      ),
                       InkWell(
-                          onTap: () async {
-                            try {
-                              await FirebaseAuth.instance
-                                  .sendPasswordResetEmail(
-                                  email: emailController.text);
-                            } catch (e) {
-                              if (kDebugMode) {
-                                print(e.toString());
-                              }
+                        onTap: () async {
+                          try {
+                            await FirebaseAuth.instance.sendPasswordResetEmail(
+                              email: emailController.text,
+                            );
+                          } catch (e) {
+                            if (kDebugMode) {
+                              print(e.toString());
                             }
-                          },
-                          child: Container(
-                            alignment: Alignment.topRight,
-                            margin: const EdgeInsets.all(10),
-                            child: const Text(
-                              "Forget Password ?",
-                              style: TextStyle(color: AppColors.blackSecondary),
-                            ),
-                          )),
-                      const SizedBox(
-                        height: 30,
+                          }
+                        },
+                        child: Container(
+                          alignment: Alignment.topRight,
+                          margin: const EdgeInsets.all(10),
+                          child: const Text(
+                            "Forget Password ?",
+                            style: TextStyle(color: AppColors.blackSecondary),
+                          ),
+                        ),
                       ),
+                      const SizedBox(height: 30),
                       //sign in button
                       Center(
                         child: CustomButton(
                           title: "Login",
                           onTap: () {
-                            // context.read<AuthCubit>().signIn(
-                            //       emailController.text,
-                            //       passwordController.text,
-                            //     );
-
-                            Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),), (
-                                  route) => true,);
+                            context.read<AuthCubit>().signIn(
+                              emailController.text,
+                              passwordController.text,
+                            );
                           },
                         ),
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      const SizedBox(height: 30),
                       const Divider(),
                       Row(
                         children: [
-                          const Text("Don't have an account",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              )),
+                          const Text(
+                            "Don't have an account",
+                            style: TextStyle(color: Colors.grey),
+                          ),
                           TextButton(
                             onPressed: () {
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const SignUp(),
-                                ), (route) => true,);
+                                ),
+                                (route) => true,
+                              );
                             },
                             child: const Text(
                               "Create!",
-                              style: TextStyle(
-                                color: Color(
-                                  0xff1F4C6B,
-                                ),
-                              ),
+                              style: TextStyle(color: Color(0xff1F4C6B)),
                             ),
                           ),
                         ],

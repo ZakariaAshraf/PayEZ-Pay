@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payez_pay/features/authenticate/presentation/pages/sign_in.dart';
+import 'package:payez_pay/features/home/presentation/screens/home_screen.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text_field.dart';
 import '../manager/auth_cubit.dart';
@@ -24,11 +25,11 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
         if (state is AuthSuccess) {
-          // Navigator.pushReplacement(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => const HomeView(),
-          //     ));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ));
         } else if (state is AuthFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.error)),
@@ -79,7 +80,6 @@ class _SignUpState extends State<SignUp> {
                                 email: emailController.text,
                                 password: passwordController.text,
                                 phone: phoneController.text,
-                                // nationality: nationalityController.text,
                                 name: nameController.text,
                               );
                         },

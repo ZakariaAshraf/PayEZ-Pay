@@ -19,12 +19,10 @@ class TransactionItem extends StatelessWidget {
         ),
         child: ListTile(
           trailing: Text("${transaction.amount}", style: theme.titleSmall),
-          leading: CircleAvatar(
-            child: Image.asset(
-              "assets/icons/bill.png",
-              width: 35.w,
-              height: 35.h,
-            ),
+          leading: Image.asset(
+            "assets/icons/transfer.png",
+            width: 40.w,
+            height: 40.h,
           ),
           subtitle: Text(formatTimestamp(transaction.date)),
           title: Text(transaction.description, style: theme.titleMedium),
