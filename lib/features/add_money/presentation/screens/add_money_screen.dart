@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:payez_pay/config/utils/app_colors.dart';
-import 'package:payez_pay/widgets/custom_text_field.dart';
+import 'package:payez_pay/features/add_money/presentation/cubit/add_funds_cubit.dart';
 import 'package:payez_pay/widgets/primary_button.dart';
 
-import '../../../../widgets/custom_button.dart';
+import '../../../../widgets/custom_toast_widget.dart';
 
 class AddMoneyScreen extends StatelessWidget {
   AddMoneyScreen({super.key});
@@ -14,7 +15,7 @@ class AddMoneyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
-    void showBottomSheet() {
+    void showBottomSheet({required void Function() onTap}) {
       showModalBottomSheet(
         enableDrag: false,
         context: context,
@@ -66,10 +67,7 @@ class AddMoneyScreen extends StatelessWidget {
                           "Top up ID",
                           style: theme.titleSmall!.copyWith(color: Colors.grey),
                         ),
-                        Text(
-                          "1000000XXX",
-                          style:theme.titleSmall,
-                        ),
+                        Text("1000000XXX", style: theme.titleSmall),
                       ],
                     ),
                     SizedBox(height: 20.h),
@@ -82,7 +80,7 @@ class AddMoneyScreen extends StatelessWidget {
                         ),
                         Text(
                           "${balanceController.text}EGP",
-                          style:theme.titleSmall,
+                          style: theme.titleSmall,
                         ),
                       ],
                     ),
@@ -96,7 +94,9 @@ class AddMoneyScreen extends StatelessWidget {
                         ),
                         Text(
                           "Free",
-                          style:theme.titleSmall!.copyWith(color: AppColors.primaryDeepOceanBlue),
+                          style: theme.titleSmall!.copyWith(
+                            color: AppColors.primaryDeepOceanBlue,
+                          ),
                         ),
                       ],
                     ),
@@ -108,14 +108,15 @@ class AddMoneyScreen extends StatelessWidget {
                           "Time",
                           style: theme.titleSmall!.copyWith(color: Colors.grey),
                         ),
-                        Text(
-                          "${DateTime.now()}",
-                          style:theme.titleSmall,
-                        ),
+                        Text("${DateTime.now()}", style: theme.titleSmall),
                       ],
                     ),
                     SizedBox(height: 40.h),
-                    PrimaryButton(title: "Confirm Top Up",color: AppColors.secondaryAquaBreeze,)
+                    PrimaryButton(
+                      title: "Confirm Top Up",
+                      color: AppColors.secondaryAquaBreeze,
+                      onTap: onTap,
+                    ),
                   ],
                 ),
               );
@@ -125,69 +126,100 @@ class AddMoneyScreen extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Top Up Balance", style: theme.titleLarge),
-      ),
-      body: Column(
-        children: [
-          SizedBox(height: 50.h,),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Add Money",
-                    style: theme.titleSmall!.copyWith(color: Colors.grey),
+    return BlocListener<AddFundsCubit, AddFundsState>(
+      listener: (context, state) {
+        if (state is AddFundsSuccess) {
+          CustomToastWidget.show(
+            context: context,
+            title: "Update success",
+            iconPath: "assets/icons/logo.png",
+          );
+          Navigator.pop(context);
+        } else if (state is AddFundsError) {
+          Navigator.pop(context);
+          CustomToastWidget.show(
+            context: context,
+            title: "Update Failed",
+            iconPath: "assets/icons/logo.png",
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Top Up Balance", style: theme.titleLarge),
+        ),
+        body: Column(
+          children: [
+            SizedBox(height: 50.h),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Add Money",
+                      style: theme.titleSmall!.copyWith(color: Colors.grey),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  maxLines: 1,
-                  controller: balanceController,
-                  style: theme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.sp,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    maxLines: 1,
+                    controller: balanceController,
+                    style: theme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.sp,
+                    ),
+                    keyboardType: TextInputType.numberWithOptions(),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.attach_money,
+                        color: Colors.grey,
+                        size: 30,
+                      ),
+                      suffix: Text("🇪🇬 EGP"),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                    ),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? 'Please fill this' : null,
                   ),
-                  keyboardType: TextInputType.numberWithOptions(),
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.attach_money,
-                      color: Colors.grey,
-                      size: 30,
-                    ),
-                    suffix: Text("🇪🇬 EGP"),
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                  ),
-                  validator: (val) =>
-                      val == null || val.isEmpty ? 'Please fill this' : null,
                 ),
-              ),
-            ],
-          ),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: PrimaryButton(
-              title: "Continue",
-              onTap: () {
-                showBottomSheet();
-              },
-              color: AppColors.secondaryAquaBreeze,
+              ],
             ),
-          ),
-        ],
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: BlocBuilder<AddFundsCubit, AddFundsState>(
+                builder: (context, state) {
+                  final isLoading = state is AddFundsLoading;
+                  return PrimaryButton(
+                    title: isLoading ? "Processing.." : "Continue"  ,
+                    onTap: () {
+                      showBottomSheet(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          context.read<AddFundsCubit>().addFunds(
+                            amountToAdd: double.parse(balanceController.text),
+                          );
+                        },
+                      );
+                    },
+                    color: AppColors.secondaryAquaBreeze,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

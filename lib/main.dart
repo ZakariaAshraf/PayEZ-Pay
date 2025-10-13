@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:payez_pay/config/themes/app_theme.dart';
+import 'package:payez_pay/features/add_money/presentation/cubit/add_funds_cubit.dart';
 import 'package:payez_pay/features/home/presentation/screens/home_screen.dart';
 import 'package:payez_pay/features/on_boarding/splash_screen.dart';
 import 'features/authenticate/data/repositories/auth_repository_impl.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
 
         ),
         BlocProvider(create: (context) => UserCubit()),
+        BlocProvider(create: (context) => AddFundsCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(428, 926),

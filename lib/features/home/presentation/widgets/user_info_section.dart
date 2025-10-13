@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:payez_pay/data/user_model.dart';
+import 'package:payez_pay/features/profile/presentation/screens/setting_screen.dart';
+import '../../../profile/data/models/app_user_model.dart';
 
 class UserInfoSection extends StatefulWidget {
-  final UserModel user;
+  final AppUserModel user;
   final bool isHide;
 
   const UserInfoSection({super.key, required this.user, this.isHide = false});
@@ -30,13 +31,23 @@ class _UserInfoSectionState extends State<UserInfoSection> {
       child: Column(
         children: [
           ListTile(
-            leading: const Icon(CupertinoIcons.profile_circled),
+            leading:  IconButton(icon: Icon(CupertinoIcons.profile_circled), onPressed: () {},),
             subtitle: Text(
               "Good Morning!",
               style: theme.bodySmall!.copyWith(color: Colors.grey),
             ),
             title: Text("Hi, ${widget.user.name}", style: theme.titleMedium),
-            trailing: const Icon(Icons.notifications_active_outlined),
+            trailing: IconButton(icon: Icon(Icons.settings_outlined), onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingScreen(
+                    name: widget.user.name,
+                    phone: widget.user.phone,
+                  ),
+                ),
+              );
+            },),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -49,7 +60,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                       "Total balance",
                       style: theme.bodyMedium!.copyWith(color: Colors.grey),
                     ),
-                     SizedBox(width: 4.w),
+                    SizedBox(width: 4.w),
                     IconButton(
                       iconSize: 30.r,
                       icon: Icon(
@@ -66,7 +77,6 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                     ),
                   ],
                 ),
-                // The text now conditionally displays the balance or asterisks
                 Text(
                   _obscure ? "\$ ••••••" : "\$ ${widget.user.balance}",
                   style: theme.bodyMedium!.copyWith(
