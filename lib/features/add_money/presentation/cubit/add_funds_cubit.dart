@@ -12,7 +12,7 @@ class AddFundsCubit extends Cubit<AddFundsState> {
   addFunds({required double amountToAdd}) async {
     emit(AddFundsLoading());
     try {
-      await service.addFundsToWallet( amountToAdd: amountToAdd);
+      await service.addFundsToWallet(amountToAdd: amountToAdd);
     } on Exception catch (e) {
       emit(AddFundsError(errorMessage: e.toString()));
     }

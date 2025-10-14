@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:payez_pay/features/transaction_history/data/bill_item_model.dart';
+import 'package:payez_pay/data/transactions_services.dart';
+import 'package:payez_pay/features/pay_bills/presentation/cubit/pay_bills_cubit.dart';
 import '../../../../config/utils/app_colors.dart';
+import '../../../../widgets/custom_toast_widget.dart';
 import '../../../../widgets/primary_button.dart';
+import '../../data/bill_item_model.dart';
 
 class BillDetailsScreen extends StatelessWidget {
   final BillItemModel billItemModel;
@@ -14,115 +18,150 @@ class BillDetailsScreen extends StatelessWidget {
     var theme = Theme.of(context).textTheme;
     TextEditingController billNumberController = TextEditingController();
     TextEditingController amountController = TextEditingController();
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("${billItemModel.name} Bill", style: theme.titleLarge),
-      ),
-      body: Column(
-        children: [
-          SizedBox(height: 60.h,),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return BlocListener<PayBillsCubit, PayBillsState>(
+      listener: (context, state) {
+        if (state is PayBillsSuccess) {
+          Navigator.pop(context);
+          CustomToastWidget.show(
+            context: context,
+            title: "Payment success",
+            iconPath: billItemModel.iconPath,
+          );
+        } else if (state is PayBillsError) {
+          Navigator.pop(context);
+          CustomToastWidget.show(
+            context: context,
+            title: "Insufficient funds",
+            iconPath: billItemModel.iconPath,
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("${billItemModel.name} Bill", style: theme.titleLarge),
+        ),
+        body: Column(
+          children: [
+            SizedBox(height: 60.h),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    billItemModel.iconPath,
+                    width: 45.w,
+                    height: 45.h,
+                  ),
+                  SizedBox(width: 15.w),
+                  Text(billItemModel.companyName, style: theme.titleMedium),
+                ],
+              ),
+            ),
+            Column(
               children: [
-                Image.asset(billItemModel.iconPath, width: 45.w, height: 45.h),
-                SizedBox(width: 15.w,),
-                Text(billItemModel.companyName, style: theme.titleMedium),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      billItemModel.isMobilRecharge
+                          ? "Mobile Number"
+                          : "Bill / Account Number",
+                      style: theme.titleSmall!.copyWith(color: Colors.grey),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    maxLines: 1,
+                    controller: billNumberController,
+                    style: theme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.sp,
+                    ),
+                    keyboardType: TextInputType.numberWithOptions(),
+                    decoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                    ),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? 'Please fill this' : null,
+                  ),
+                ),
               ],
             ),
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    billItemModel.isMobilRecharge ?"Mobile Number" :"Bill / Account Number" ,
-                    style: theme.titleSmall!.copyWith(color: Colors.grey),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Amount",
+                      style: theme.titleSmall!.copyWith(color: Colors.grey),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  maxLines: 1,
-                  controller: billNumberController,
-                  style: theme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.sp,
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(),
-                  decoration: InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    maxLines: 1,
+                    controller: amountController,
+                    style: theme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.sp,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                    keyboardType: TextInputType.numberWithOptions(),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.attach_money,
+                        color: Colors.grey,
+                        size: 30,
+                      ),
+                      suffix: Text("🇪🇬 EGP"),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
                     ),
-                  ),
-                  validator: (val) =>
-                      val == null || val.isEmpty ? 'Please fill this' : null,
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Amount",
-                    style: theme.titleSmall!.copyWith(color: Colors.grey),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? 'Please fill this' : null,
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  maxLines: 1,
-                  controller: amountController,
-                  style: theme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.sp,
-                  ),
-                  keyboardType: TextInputType.numberWithOptions(),
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.attach_money,
-                      color: Colors.grey,
-                      size: 30,
-                    ),
-                    suffix: Text("🇪🇬 EGP"),
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                  ),
-                  validator: (val) =>
-                      val == null || val.isEmpty ? 'Please fill this' : null,
-                ),
-              ),
-            ],
-          ),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: PrimaryButton(
-              title: " CONFIRM & PAY",
-              onTap: () {},
-              color: AppColors.secondaryAquaBreeze,
+              ],
             ),
-          ),
-        ],
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: BlocBuilder<PayBillsCubit, PayBillsState>(
+                builder: (context, state) {
+                  final isLoading = state is PayBillsLoading;
+                  return PrimaryButton(
+                    title: isLoading ? "Processing.." : "CONFIRM & PAY",
+                    onTap: () {
+                      context.read<PayBillsCubit>().payBill(
+                        paymentAmount: double.parse(amountController.text),
+                        billDescription: billItemModel.toString(),
+                      );
+                    },
+                    color: AppColors.secondaryAquaBreeze,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:payez_pay/features/transaction_history/data/bill_item_model.dart';
+
+import 'bill_item_model.dart';
 
 class BillItemService {
   static List<BillItemModel> getBillItems(BuildContext context) {
@@ -7,7 +8,7 @@ class BillItemService {
       BillItemModel(
         iconPath: "assets/icons/electricity.png",
         name: "Electricity",
-        companyName: 'East Cairo',
+        companyName: 'East Delta',
       ),
       BillItemModel(
         iconPath: "assets/icons/water.png",
@@ -17,12 +18,12 @@ class BillItemService {
       BillItemModel(
         iconPath: "assets/icons/internet.png",
         name: "Internet",
-        companyName: 'Cairo Global Water',
+        companyName: 'We Network',
       ),
       BillItemModel(
         iconPath: "assets/icons/gas.png",
         name: "Gas",
-        companyName: 'Cairo Global Water',
+        companyName: 'Cairo Global Gas',
       ),
     ];
   }

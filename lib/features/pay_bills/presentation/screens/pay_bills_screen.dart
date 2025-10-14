@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:payez_pay/features/pay_bills/presentation/widgets/bill_item.dart';
-import 'package:payez_pay/features/transaction_history/data/bill_item_model.dart';
-import 'package:payez_pay/features/transaction_history/data/bill_item_service.dart';
+
+import '../../data/bill_item_model.dart';
+import '../../data/bill_item_service.dart';
 
 class PayBillsScreen extends StatefulWidget {
   const PayBillsScreen({super.key});
@@ -37,13 +38,6 @@ class _PayBillsScreenState extends State<PayBillsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Select a service to pay for: ",
-                style: theme.titleMedium!.copyWith(color: Colors.grey),
-              ),
-            ),
             SizedBox(
               height: 60,
               child: ListView.builder(

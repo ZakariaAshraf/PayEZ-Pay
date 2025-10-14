@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:payez_pay/features/profile/presentation/screens/setting_screen.dart';
-import '../../../profile/data/models/app_user_model.dart';
+import '../../../settings/data/models/app_user_model.dart';
+import '../../../settings/presentation/screens/setting_screen.dart';
 
 class UserInfoSection extends StatefulWidget {
   final AppUserModel user;

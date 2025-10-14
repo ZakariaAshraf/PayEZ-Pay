@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:payez_pay/features/transaction_history/data/bill_item_model.dart';
-
+import '../../data/bill_item_model.dart';
 import '../screens/bill_details_screen.dart';
 
 class BillItem extends StatelessWidget {
