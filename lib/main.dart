@@ -2,29 +2,37 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:payez_pay/config/themes/app_theme.dart';
 import 'package:payez_pay/features/add_money/presentation/cubit/add_funds_cubit.dart';
 import 'package:payez_pay/features/home/presentation/screens/home_screen.dart';
 import 'package:payez_pay/features/on_boarding/splash_screen.dart';
+import 'config/locale/providers/locale_provider.dart';
+import 'config/themes/providers/theme_provider.dart';
 import 'features/authenticate/data/repositories/auth_repository_impl.dart';
 import 'features/authenticate/domain/use_cases/auth_usecases.dart';
 import 'features/authenticate/presentation/manager/auth_cubit.dart';
 import 'features/authenticate/presentation/pages/sign_in.dart';
 import 'features/authenticate/presentation/pages/sign_up.dart';
-import 'features/profile/presentation/Cubit/user_cubit.dart';
+import 'features/pay_bills/presentation/cubit/pay_bills_cubit.dart';
+import 'features/settings/presentation/Cubit/user_cubit.dart';
+import 'l10n/app_localizations.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context ,ref) {
+    final theme =ref.watch(themeProvider);
+    final locale =ref.watch(localeProvider);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -36,6 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => AddFundsCubit()),
+        BlocProvider(create: (context) => PayBillsCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(428, 926),
@@ -43,8 +52,17 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         child: MaterialApp(
           title: 'PayEz Pay',
-          theme: AppTheme.getApplicationLightTheme(),
-          darkTheme: AppTheme.getApplicationDarkTheme(),
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: locale,
+          themeMode: theme,
+          darkTheme: ThemeData.dark(),
+          theme: ThemeData.light(),
           debugShowCheckedModeBanner: false,
           initialRoute: "/wrapper",
           routes: {

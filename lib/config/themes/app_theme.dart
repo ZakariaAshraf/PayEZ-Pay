@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:payez_pay/config/themes/text_theme.dart';
 
 class AppTheme {
   static ThemeData getApplicationLightTheme() {
     return ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
-        // textTheme: AppTextTheme.lightTextTheme,
-        // elevatedButtonTheme: AppElevatedButtonTheme.elevatedButtonLightTheme
+        textTheme: AppTextTheme.lightTextTheme,
     );
   }
 
@@ -14,8 +14,7 @@ class AppTheme {
     return ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        // textTheme: AppTextTheme.darkTextTheme,
-        // elevatedButtonTheme: AppElevatedButtonTheme.elevatedButtonDarkTheme
+        textTheme: AppTextTheme.darkTextTheme,
     );
   }
 }

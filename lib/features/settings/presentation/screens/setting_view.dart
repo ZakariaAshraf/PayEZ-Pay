@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:payez_pay/features/profile/presentation/screens/setting_screen.dart';
+import 'package:payez_pay/features/settings/presentation/screens/setting_screen.dart';
 import '../Cubit/user_cubit.dart';
 class SettingView extends StatelessWidget {
   const SettingView({super.key});

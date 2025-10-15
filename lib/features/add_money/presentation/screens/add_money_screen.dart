@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:payez_pay/features/add_money/presentation/cubit/add_funds_cubit.dart';
 import 'package:payez_pay/widgets/primary_button.dart';
+import 'package:payez_pay/l10n/app_localizations.dart';
 
 import '../../../../widgets/custom_toast_widget.dart';
 
@@ -15,6 +16,7 @@ class AddMoneyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
     void showBottomSheet({required void Function() onTap}) {
       showModalBottomSheet(
         enableDrag: false,
@@ -52,7 +54,7 @@ class AddMoneyScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     Text(
-                      "Add Money Confirmation",
+                      l10n!.addMoneyConfirmation,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
@@ -64,7 +66,7 @@ class AddMoneyScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Top up ID",
+                          l10n.topUpId,
                           style: theme.titleSmall!.copyWith(color: Colors.grey),
                         ),
                         Text("1000000XXX", style: theme.titleSmall),
@@ -75,11 +77,11 @@ class AddMoneyScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Amount",
+                          l10n.amount,
                           style: theme.titleSmall!.copyWith(color: Colors.grey),
                         ),
                         Text(
-                          "${balanceController.text}EGP",
+                          "${balanceController.text}${l10n.egp}",
                           style: theme.titleSmall,
                         ),
                       ],
@@ -89,11 +91,11 @@ class AddMoneyScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Top up fee",
+                          l10n.topUpFee,
                           style: theme.titleSmall!.copyWith(color: Colors.grey),
                         ),
                         Text(
-                          "Free",
+                          l10n.free,
                           style: theme.titleSmall!.copyWith(
                             color: AppColors.primaryDeepOceanBlue,
                           ),
@@ -105,7 +107,7 @@ class AddMoneyScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Time",
+                          l10n.time,
                           style: theme.titleSmall!.copyWith(color: Colors.grey),
                         ),
                         Text("${DateTime.now()}", style: theme.titleSmall),
@@ -113,7 +115,7 @@ class AddMoneyScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 40.h),
                     PrimaryButton(
-                      title: "Confirm Top Up",
+                      title: l10n.confirmTopUp,
                       color: AppColors.secondaryAquaBreeze,
                       onTap: onTap,
                     ),
@@ -131,7 +133,7 @@ class AddMoneyScreen extends StatelessWidget {
         if (state is AddFundsSuccess) {
           CustomToastWidget.show(
             context: context,
-            title: "Update success",
+            title: l10n!.updateSuccess,
             iconPath: "assets/icons/logo.png",
           );
           Navigator.pop(context);
@@ -139,7 +141,7 @@ class AddMoneyScreen extends StatelessWidget {
           Navigator.pop(context);
           CustomToastWidget.show(
             context: context,
-            title: "Update Failed",
+            title: l10n.updateFailed,
             iconPath: "assets/icons/logo.png",
           );
         }
@@ -147,7 +149,7 @@ class AddMoneyScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Top Up Balance", style: theme.titleLarge),
+          title: Text(l10n!.topUpBalance, style: theme.titleLarge),
         ),
         body: Column(
           children: [
@@ -159,7 +161,7 @@ class AddMoneyScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Add Money",
+                      l10n!.addMoney,
                       style: theme.titleSmall!.copyWith(color: Colors.grey),
                     ),
                   ),
@@ -180,7 +182,7 @@ class AddMoneyScreen extends StatelessWidget {
                         color: Colors.grey,
                         size: 30,
                       ),
-                      suffix: Text("🇪🇬 EGP"),
+                      suffix: Text("🇪🇬 ${l10n!.egp}"),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -190,7 +192,7 @@ class AddMoneyScreen extends StatelessWidget {
                       ),
                     ),
                     validator: (val) =>
-                        val == null || val.isEmpty ? 'Please fill this' : null,
+                        val == null || val.isEmpty ? l10n!.pleaseFillThis : null,
                   ),
                 ),
               ],
@@ -202,7 +204,7 @@ class AddMoneyScreen extends StatelessWidget {
                 builder: (context, state) {
                   final isLoading = state is AddFundsLoading;
                   return PrimaryButton(
-                    title: isLoading ? "Processing.." : "Continue"  ,
+                    title: isLoading ? l10n!.processing : l10n.continuee,
                     onTap: () {
                       showBottomSheet(
                         onTap: () {

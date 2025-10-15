@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:payez_pay/data/transactions_services.dart';
+import 'package:payez_pay/l10n/app_localizations.dart';
 import '../../../transaction_history/presentation/screens/transaction_screen.dart';
 import '../../../transaction_history/presentation/widgets/transaction_item.dart';
 
@@ -16,11 +17,12 @@ class TransactionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
     return StreamBuilder(
       stream: service.getTransactionHistory(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text("Error: ${snapshot.error}");
+          return Text(l10n!.error(snapshot.error.toString()));
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -37,11 +39,11 @@ class TransactionsSection extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Text("Recent Transactions", style: theme.titleMedium),
+                    Text(l10n!.recentTransactions, style: theme.titleMedium),
                   ],
                 ),
               ),
-              Center(child: Text("\n\n\n No Transactions", style: theme.titleMedium)),
+              Center(child: Text("\n\n\n ${l10n.noTransactions}", style: theme.titleMedium)),
             ],
           );
         }
@@ -53,7 +55,7 @@ class TransactionsSection extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Recent Transactions", style: theme.titleMedium),
+                  Text(l10n!.recentTransactions, style: theme.titleMedium),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -65,7 +67,7 @@ class TransactionsSection extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      "See All",
+                      l10n.seeAll,
                       style: theme.titleMedium!.copyWith(
                         color: AppColors.primaryDeepOceanBlue,
                       ),

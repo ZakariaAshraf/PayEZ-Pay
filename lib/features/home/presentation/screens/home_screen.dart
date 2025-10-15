@@ -8,7 +8,9 @@ import 'package:payez_pay/features/home/presentation/widgets/refer_section.dart'
 import 'package:payez_pay/features/home/presentation/widgets/transactions_section.dart';
 import 'package:payez_pay/features/home/presentation/widgets/user_info_section.dart';
 import 'package:payez_pay/features/pay_bills/presentation/screens/pay_bills_screen.dart';
-import 'package:payez_pay/features/profile/presentation/Cubit/user_cubit.dart';
+import 'package:payez_pay/l10n/app_localizations.dart';
+
+import '../../../settings/presentation/Cubit/user_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -17,6 +19,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return BlocProvider(
       create: (context) => UserCubit()..listenToUserData(),
       child: Scaffold(
@@ -34,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       HomeScreenButton(
-                        title: "Top Up",
+                        title: l10n!.topUp,
                         iconData: CupertinoIcons.plus,
                         onTap: () {
                           Navigator.push(
@@ -46,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                         },
                       ),
                       HomeScreenButton(
-                        title: "Pay Bills",
+                        title: l10n.payBills,
                         iconData: Icons.payment,
                         onTap: () {
                           Navigator.push(

@@ -1,0 +1,71 @@
+{
+  "@@locale": "ar",
+  "welcome": "مرحباً",
+  "search": "بحث",
+  "settings": "الاعدادات",
+  "themeMode": "وضع الالوان",
+  "language": "اللغه",
+  "price": "{price} جنيه",
+  "@price": {
+    "description": "Price display with currency",
+    "placeholders": {
+      "price": {}
+    }
+  },
+  "topUp": "شحن الرصيد",
+  "payBills": "دفع الفواتير",
+  "transactions": "المعاملات",
+  "mobileNumber": "رقم الهاتف المحمول",
+  "billAccountNumber": "رقم الفاتورة / الحساب",
+  "amount": "المبلغ",
+  "confirmPay": "تأكيد ودفع",
+  "processing": "جاري المعالجة..",
+  "paymentSuccess": "تم الدفع بنجاح",
+  "insufficientFunds": "رصيد غير كافي",
+  "pleaseFillThis": "يرجى ملء هذا الحقل",
+  "topUpBalance": "شحن الرصيد",
+  "addMoney": "إضافة أموال",
+  "continuee": "متابعة",
+  "addMoneyConfirmation": "تأكيد إضافة الأموال",
+  "topUpId": "معرف الشحن",
+  "topUpFee": "رسوم الشحن",
+  "free": "مجاني",
+  "time": "الوقت",
+  "confirmTopUp": "تأكيد الشحن",
+  "updateSuccess": "تم التحديث بنجاح",
+  "updateFailed": "فشل التحديث",
+  "bills": "الفواتير",
+  "mobileBills": "فواتير المحمول",
+  "mobileRecharge": "شحن المحمول",
+  "changePassword": "تغيير كلمة المرور",
+  "editProfile": "تعديل الملف الشخصي",
+  "logout": "تسجيل الخروج",
+  "pleaseWriteEmail": "يرجى كتابة عنوان بريدك الإلكتروني",
+  "email": "البريد الإلكتروني",
+  "fullName": "الاسم الكامل",
+  "phoneNumber": "رقم الهاتف",
+  "saveChanges": "حفظ التغييرات",
+  "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي بنجاح!",
+  "egp": "جنيه",
+  "goodMorning": "صباح الخير!",
+  "hi": "مرحباً، {name}",
+  "@hi": {
+    "description": "Greeting with user name",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "totalBalance": "الرصيد الإجمالي",
+  "inviteFriendEarnCashback": "ادع صديقاً وكلاهما يحصل على استرداد نقدي",
+  "inviteFriend": "ادع صديقاً -->",
+  "recentTransactions": "المعاملات الأخيرة",
+  "seeAll": "عرض الكل",
+  "noTransactions": "لا توجد معاملات",
+  "error": "خطأ: {error}",
+  "@error": {
+    "description": "Error message with error details",
+    "placeholders": {
+      "error": {}
+    }
+  }
+}

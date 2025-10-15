@@ -1,0 +1,71 @@
+{
+  "@@locale": "en",
+  "welcome": "Welcome",
+  "settings": "Settings",
+  "search": "Search",
+  "themeMode": "Theme Mode",
+  "language": "Language",
+  "price": "{price} EGP",
+  "@price": {
+    "description": "Price display with currency",
+    "placeholders": {
+      "price": {}
+    }
+  },
+  "topUp": "Top Up",
+  "payBills": "Pay Bills",
+  "transactions": "Transactions",
+  "mobileNumber": "Mobile Number",
+  "billAccountNumber": "Bill / Account Number",
+  "amount": "Amount",
+  "confirmPay": "CONFIRM & PAY",
+  "processing": "Processing..",
+  "paymentSuccess": "Payment success",
+  "insufficientFunds": "Insufficient funds",
+  "pleaseFillThis": "Please fill this",
+  "topUpBalance": "Top Up Balance",
+  "addMoney": "Add Money",
+  "addMoneyConfirmation": "Add Money Confirmation",
+  "topUpId": "Top up ID",
+  "topUpFee": "Top up fee",
+  "continuee": "Continue",
+  "free": "Free",
+  "time": "Time",
+  "confirmTopUp": "Confirm Top Up",
+  "updateSuccess": "Update success",
+  "updateFailed": "Update Failed",
+  "bills": "Bills",
+  "mobileBills": "Mobile Bills",
+  "mobileRecharge": "Mobile Recharge",
+  "changePassword": "Change Password",
+  "editProfile": "Edit Profile",
+  "logout": "logout",
+  "pleaseWriteEmail": "Please write your Email Address",
+  "email": "Email",
+  "fullName": "Full Name",
+  "phoneNumber": "Phone Number",
+  "saveChanges": "Save Changes",
+  "profileUpdatedSuccessfully": "Profile updated successfully!",
+  "egp": "EGP",
+  "goodMorning": "Good Morning!",
+  "hi": "Hi, {name}",
+  "@hi": {
+    "description": "Greeting with user name",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "totalBalance": "Total balance",
+  "inviteFriendEarnCashback": "Invite a friend and both earn cashback",
+  "inviteFriend": "Invite friend -->",
+  "recentTransactions": "Recent Transactions",
+  "seeAll": "See All",
+  "noTransactions": "No Transactions",
+  "error": "Error: {error}",
+  "@error": {
+    "description": "Error message with error details",
+    "placeholders": {
+      "error": {}
+    }
+  }
+}

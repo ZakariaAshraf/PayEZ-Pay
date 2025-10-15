@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:payez_pay/l10n/app_localizations.dart';
 import '../../../settings/data/models/app_user_model.dart';
 import '../../../settings/presentation/screens/setting_screen.dart';
 
@@ -26,6 +27,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Column(
@@ -33,10 +35,10 @@ class _UserInfoSectionState extends State<UserInfoSection> {
           ListTile(
             leading:  IconButton(icon: Icon(CupertinoIcons.profile_circled), onPressed: () {},),
             subtitle: Text(
-              "Good Morning!",
+              l10n!.goodMorning,
               style: theme.bodySmall!.copyWith(color: Colors.grey),
             ),
-            title: Text("Hi, ${widget.user.name}", style: theme.titleMedium),
+            title: Text(l10n.hi(widget.user.name), style: theme.titleMedium),
             trailing: IconButton(icon: Icon(Icons.settings_outlined), onPressed: () {
               Navigator.push(
                 context,
@@ -57,7 +59,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                 Row(
                   children: [
                     Text(
-                      "Total balance",
+                      l10n.totalBalance,
                       style: theme.bodyMedium!.copyWith(color: Colors.grey),
                     ),
                     SizedBox(width: 4.w),

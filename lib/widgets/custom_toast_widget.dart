@@ -24,7 +24,7 @@ class CustomToastWidget {
             width: 24.w,
             height: 24.h,
             decoration: BoxDecoration(
-              color: iconBackgroundColor ?? AppColors.secondaryAquaBreeze,
+              color: iconBackgroundColor ?? Colors.transparent,
               shape: BoxShape.circle,
             ),
             child: Center(
@@ -36,8 +36,8 @@ class CustomToastWidget {
                     )
                   : Image.asset(
                       iconPath,
-                      width: 16.w,
-                      height: 16.h,
+                      width: 30.w,
+                      height: 30.h,
                     ),
             ),
           ),
@@ -46,7 +46,7 @@ class CustomToastWidget {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 12.sp,
+                fontSize: 15.sp,
                 color: isDark ? Colors.white : Colors.black87,
               ),
             ),
@@ -54,7 +54,7 @@ class CustomToastWidget {
         ],
       ),
       alignment: Alignment.bottomCenter,
-      autoCloseDuration: autoCloseDuration ?? const Duration(seconds: 1),
+      autoCloseDuration: autoCloseDuration ?? const Duration(seconds: 3),
       backgroundColor: backgroundColor ?? (isDark ? const Color(0xFF2A2A2A) : const Color(0xFFFFEFE8)),
       margin: EdgeInsets.only(
         top: 650.h,

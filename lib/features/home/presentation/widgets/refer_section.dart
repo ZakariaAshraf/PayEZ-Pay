@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:payez_pay/config/utils/app_colors.dart';
+import 'package:payez_pay/l10n/app_localizations.dart';
 
 class ReferSection extends StatelessWidget {
   const ReferSection({super.key});
@@ -8,6 +9,7 @@ class ReferSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: EdgeInsets.all(10.w),
       child: Container(
@@ -38,7 +40,7 @@ class ReferSection extends StatelessWidget {
               child: SizedBox(
                 width: 200,
                 child: Text(
-                  "Invite a friend and both earn cashback",
+                  l10n!.inviteFriendEarnCashback,
                   style: theme.titleMedium!.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -52,7 +54,7 @@ class ReferSection extends StatelessWidget {
               child: TextButton(
                 onPressed: (){},
                 child: Text(
-                  "Invite friend -->",
+                  l10n.inviteFriend,
                   style: theme.bodyMedium!.copyWith(
                     color: AppColors.secondaryAquaBreeze,
 

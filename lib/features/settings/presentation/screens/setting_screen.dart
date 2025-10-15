@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../components/profile_button.dart';
+import 'package:payez_pay/config/locale/widgets/language_toggle_button.dart';
+import '../../../../config/themes/widgets/theme_toggle_button.dart';
+import '../components/settings_button.dart';
 import 'change_password_screen.dart';
 import 'edit_profile_screen.dart';
+import 'package:payez_pay/l10n/app_localizations.dart';
 
 class SettingScreen extends StatefulWidget {
   final String name;
@@ -25,49 +27,13 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text("Settings"), centerTitle: true),
+      appBar: AppBar(title:  Text(l10n!.settings,style: theme.titleLarge,), centerTitle: true),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         children: [
-          // ListTile(
-          //   leading: const Icon(
-          //     Icons.account_circle_outlined,
-          //   ),
-          //   title: Text(
-          //       "Account Settings",
-          //       style: Theme.of(context)
-          //           .textTheme
-          //           .titleMedium!
-          //   ),
-          // ),
-
-          // ListTile(
-          //   leading: const Icon(
-          //     Icons.account_circle_outlined,
-          //   ),
-          //   title: Text(
-          //       "Account Information",
-          //       style: Theme.of(context)
-          //           .textTheme
-          //           .titleMedium!
-          //   ),
-          // ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 24.h),
-              _buildInfoTile(Icons.person_outline, widget.name),
-              _buildInfoTile(Icons.phone_outlined, widget.phone),
-              _buildInfoTile(
-                Icons.email_outlined,
-                FirebaseAuth.instance.currentUser?.email ?? "no email",
-              ),
-              SizedBox(height: 24.h),
-
-            ],
-          ),
-
           // Card(
           //   elevation: 0.5,
           //   child: ListTile(
@@ -88,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> {
           //   ),
           // ),
           ProfileButton(
-            title: "Change Password",
+            title: l10n.changePassword,
             function: () {
               Navigator.push(
                 context,
@@ -100,7 +66,7 @@ class _SettingScreenState extends State<SettingScreen> {
             iconData: Icons.lock_open_outlined,
           ),
           ProfileButton(
-            title: "Edit Profile",
+            title: l10n.editProfile,
             function: () {
               Navigator.push(
                 context,
@@ -111,8 +77,10 @@ class _SettingScreenState extends State<SettingScreen> {
             },
             iconData: Icons.person,
           ),
+          ThemeToggleButton(),
+          LanguageToggleButton(),
           ProfileButton(
-            title: "logout",
+            title: l10n.logout,
             function: () async {
               try {
                 await FirebaseAuth.instance.signOut();
@@ -127,23 +95,6 @@ class _SettingScreenState extends State<SettingScreen> {
             },
             iconData: Icons.logout,
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInfoTile(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(width: 16),
-          Icon(icon, size: 24),
         ],
       ),
     );

@@ -31,10 +31,13 @@ class HomeScreenButton extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(child: Icon(iconData, color: Colors.black)),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Icon(iconData, color: AppColors.blackSecondary),
+                ),
               ),
               SizedBox(width: 10),
-              Text(title, style: theme.titleMedium),
+              Text(title, style: theme.titleMedium!.copyWith(color: Colors.black)),
             ],
           ),
         ),

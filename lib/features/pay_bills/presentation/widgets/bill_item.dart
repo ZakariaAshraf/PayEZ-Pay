@@ -30,6 +30,7 @@ class BillItem extends StatelessWidget {
           },
           trailing: Icon(Icons.arrow_forward_ios_outlined,size: 25.r,),
           leading: CircleAvatar(
+            backgroundColor: Colors.white,
             child: Image.asset(
               model.iconPath,
               width: 35.w,

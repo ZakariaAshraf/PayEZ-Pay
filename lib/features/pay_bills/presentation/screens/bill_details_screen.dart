@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:payez_pay/data/transactions_services.dart';
 import 'package:payez_pay/features/pay_bills/presentation/cubit/pay_bills_cubit.dart';
 import '../../../../config/utils/app_colors.dart';
 import '../../../../widgets/custom_toast_widget.dart';
 import '../../../../widgets/primary_button.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../data/bill_item_model.dart';
 
 class BillDetailsScreen extends StatelessWidget {
@@ -16,6 +16,7 @@ class BillDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
     TextEditingController billNumberController = TextEditingController();
     TextEditingController amountController = TextEditingController();
     return BlocListener<PayBillsCubit, PayBillsState>(
@@ -24,14 +25,14 @@ class BillDetailsScreen extends StatelessWidget {
           Navigator.pop(context);
           CustomToastWidget.show(
             context: context,
-            title: "Payment success",
+            title: l10n!.paymentSuccess,
             iconPath: billItemModel.iconPath,
           );
         } else if (state is PayBillsError) {
           Navigator.pop(context);
           CustomToastWidget.show(
             context: context,
-            title: "Insufficient funds",
+            title: l10n.insufficientFunds,
             iconPath: billItemModel.iconPath,
           );
         }
@@ -39,7 +40,7 @@ class BillDetailsScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("${billItemModel.name} Bill", style: theme.titleLarge),
+          title: Text("${billItemModel.name} ${l10n!.bills}", style: theme.titleLarge),
         ),
         body: Column(
           children: [
@@ -51,6 +52,7 @@ class BillDetailsScreen extends StatelessWidget {
                 children: [
                   Image.asset(
                     billItemModel.iconPath,
+                    color: billItemModel.isMobilRecharge ? Colors.transparent : Colors.white,
                     width: 45.w,
                     height: 45.h,
                   ),
@@ -67,8 +69,8 @@ class BillDetailsScreen extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     child: Text(
                       billItemModel.isMobilRecharge
-                          ? "Mobile Number"
-                          : "Bill / Account Number",
+                          ? l10n!.mobileNumber
+                          : l10n.billAccountNumber,
                       style: theme.titleSmall!.copyWith(color: Colors.grey),
                     ),
                   ),
@@ -93,7 +95,7 @@ class BillDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     validator: (val) =>
-                        val == null || val.isEmpty ? 'Please fill this' : null,
+                        val == null || val.isEmpty ? l10n!.pleaseFillThis : null,
                   ),
                 ),
               ],
@@ -105,7 +107,7 @@ class BillDetailsScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Amount",
+                      l10n!.amount,
                       style: theme.titleSmall!.copyWith(color: Colors.grey),
                     ),
                   ),
@@ -126,7 +128,7 @@ class BillDetailsScreen extends StatelessWidget {
                         color: Colors.grey,
                         size: 30,
                       ),
-                      suffix: Text("🇪🇬 EGP"),
+                      suffix: Text("🇪🇬 ${l10n!.egp}"),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -136,7 +138,7 @@ class BillDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     validator: (val) =>
-                        val == null || val.isEmpty ? 'Please fill this' : null,
+                        val == null || val.isEmpty ? l10n!.pleaseFillThis : null,
                   ),
                 ),
               ],
@@ -148,7 +150,7 @@ class BillDetailsScreen extends StatelessWidget {
                 builder: (context, state) {
                   final isLoading = state is PayBillsLoading;
                   return PrimaryButton(
-                    title: isLoading ? "Processing.." : "CONFIRM & PAY",
+                    title: isLoading ? l10n!.processing : l10n.confirmPay,
                     onTap: () {
                       context.read<PayBillsCubit>().payBill(
                         paymentAmount: double.parse(amountController.text),

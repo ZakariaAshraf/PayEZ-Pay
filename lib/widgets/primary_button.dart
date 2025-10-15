@@ -22,7 +22,7 @@ class PrimaryButton extends StatelessWidget {
         child:Center(
           child: Text(
             title,
-            style:theme.bodyMedium,
+            style:theme.bodyMedium!.copyWith(color: Colors.black),
           ),
         ),
       ),
