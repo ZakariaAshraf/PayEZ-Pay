@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:payez_pay/features/pay_bills/presentation/widgets/bill_item.dart';
 import 'package:payez_pay/l10n/app_localizations.dart';
 
+import '../../../../core/config/utils/app_colors.dart';
 import '../../data/bill_item_model.dart';
 import '../../data/bill_item_service.dart';
 
@@ -27,9 +27,7 @@ class _PayBillsScreenState extends State<PayBillsScreen> {
     var theme = Theme.of(context).textTheme;
     final l10n = AppLocalizations.of(context);
     billTypes = [l10n!.bills, l10n.mobileBills];
-    if (_selectedCategory == null) {
-      _selectedCategory = billTypes[0];
-    }
+    _selectedCategory ??= billTypes[0];
     
     List<BillItemModel> bills = BillItemService.getBillItems(context);
     List<BillItemModel> mobileRechargeBills =

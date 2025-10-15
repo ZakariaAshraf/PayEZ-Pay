@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/utils/app_colors.dart';
-
+import '../core/config/utils/app_colors.dart';
 class CustomButton extends StatelessWidget {
   final String title;
   final void Function() onTap;

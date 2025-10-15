@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../config/utils/app_colors.dart';
+import '../../../../core/config/utils/app_colors.dart';
 
 
 class ProfileButton extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../../widgets/settings_toggle_button.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../widgets/settings_toggle_button.dart';
 import '../providers/theme_provider.dart';
 
 class ThemeToggleButton extends ConsumerWidget {

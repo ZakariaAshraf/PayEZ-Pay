@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:payez_pay/widgets/primary_button.dart';
 import 'package:payez_pay/l10n/app_localizations.dart';
 
 // import 'package:image_picker/image_picker.dart';
+import '../../../../core/config/utils/app_colors.dart';
 import '../Cubit/user_cubit.dart';
 
 class EditProfileScreen extends StatefulWidget {

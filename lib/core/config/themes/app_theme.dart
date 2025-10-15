@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:payez_pay/config/themes/text_theme.dart';
+import 'package:payez_pay/core/config/themes/text_theme.dart';
 
 class AppTheme {
   static ThemeData getApplicationLightTheme() {

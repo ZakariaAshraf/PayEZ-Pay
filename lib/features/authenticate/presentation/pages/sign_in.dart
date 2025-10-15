@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payez_pay/features/authenticate/presentation/pages/sign_up.dart';
 import 'package:payez_pay/features/home/presentation/screens/home_screen.dart';
-
-import '../../../../config/utils/app_colors.dart';
+import 'package:payez_pay/l10n/app_localizations.dart';
+import '../../../../core/config/utils/app_colors.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text_field.dart';
 import '../manager/auth_cubit.dart';
@@ -23,6 +23,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
@@ -34,7 +35,7 @@ class _SignInState extends State<SignIn> {
           } else if (state is AuthFailure) {
             ScaffoldMessenger.of(
               context,
-            ).showSnackBar(SnackBar(content: Text(state.error)));
+            ).showSnackBar(SnackBar(content: Text(l10n!.loginFailed)));
           }
         },
         builder: (context, state) {
@@ -68,13 +69,13 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(height: 30),
                       CustomTextField(
                         controller: emailController,
-                        hintText: "Email",
+                        hintText: l10n!.email,
                       ),
                       const SizedBox(height: 30),
                       CustomTextField(
                         isPassword: true,
                         controller: passwordController,
-                        hintText: "Password",
+                        hintText: l10n.password,
                       ),
                       InkWell(
                         onTap: () async {
@@ -91,8 +92,8 @@ class _SignInState extends State<SignIn> {
                         child: Container(
                           alignment: Alignment.topRight,
                           margin: const EdgeInsets.all(10),
-                          child: const Text(
-                            "Forget Password ?",
+                          child: Text(
+                            l10n.forgetPassword,
                             style: TextStyle(color: AppColors.blackSecondary),
                           ),
                         ),
@@ -101,7 +102,7 @@ class _SignInState extends State<SignIn> {
                       //sign in button
                       Center(
                         child: CustomButton(
-                          title: "Login",
+                          title: l10n.login,
                           onTap: () {
                             context.read<AuthCubit>().signIn(
                               emailController.text,
@@ -114,8 +115,8 @@ class _SignInState extends State<SignIn> {
                       const Divider(),
                       Row(
                         children: [
-                          const Text(
-                            "Don't have an account",
+                          Text(
+                            l10n.dontHaveAccount,
                             style: TextStyle(color: Colors.grey),
                           ),
                           TextButton(
@@ -128,8 +129,8 @@ class _SignInState extends State<SignIn> {
                                 (route) => true,
                               );
                             },
-                            child: const Text(
-                              "Create!",
+                            child: Text(
+                              l10n.create,
                               style: TextStyle(color: Color(0xff1F4C6B)),
                             ),
                           ),

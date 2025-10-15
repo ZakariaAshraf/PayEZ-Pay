@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/config/utils/app_colors.dart';
 import '../../data/bill_item_model.dart';
 import '../screens/bill_details_screen.dart';
 
@@ -29,13 +30,11 @@ class BillItem extends StatelessWidget {
             );
           },
           trailing: Icon(Icons.arrow_forward_ios_outlined,size: 25.r,),
-          leading: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Image.asset(
-              model.iconPath,
-              width: 35.w,
-              height: 35.h,
-            ),
+          leading: Image.asset(
+            model.iconPath,
+            color: model.isMobilRecharge ? null: AppColors.primaryDeepOceanBlue,
+            width: 35.w,
+            height: 35.h,
           ),
           title: Text(model.name,style: theme.titleMedium,),
         ),

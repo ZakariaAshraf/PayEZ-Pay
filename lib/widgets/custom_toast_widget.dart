@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:toastification/toastification.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

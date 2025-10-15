@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:payez_pay/l10n/app_localizations.dart';
-
-import '../../../../config/utils/app_colors.dart';
+import '../../../../core/config/utils/app_colors.dart';
 import '../../../../widgets/primary_button.dart';
 
 

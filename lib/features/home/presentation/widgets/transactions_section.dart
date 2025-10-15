@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:payez_pay/data/transactions_services.dart';
 import 'package:payez_pay/l10n/app_localizations.dart';
+import '../../../../core/config/utils/app_colors.dart';
 import '../../../transaction_history/presentation/screens/transaction_screen.dart';
 import '../../../transaction_history/presentation/widgets/transaction_item.dart';
 

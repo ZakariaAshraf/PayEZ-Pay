@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:payez_pay/config/locale/widgets/language_toggle_button.dart';
-import '../../../../config/themes/widgets/theme_toggle_button.dart';
+import 'package:payez_pay/main.dart';
+import '../../../../core/config/locale/widgets/language_toggle_button.dart';
+import '../../../../core/config/themes/widgets/theme_toggle_button.dart';
 import '../components/settings_button.dart';
 import 'change_password_screen.dart';
 import 'edit_profile_screen.dart';
@@ -11,7 +12,7 @@ import 'package:payez_pay/l10n/app_localizations.dart';
 class SettingScreen extends StatefulWidget {
   final String name;
   final String phone;
- final String? photoUrl;
+  final String? photoUrl;
 
   const SettingScreen({
     super.key,
@@ -30,29 +31,13 @@ class _SettingScreenState extends State<SettingScreen> {
     var theme = Theme.of(context).textTheme;
     final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title:  Text(l10n!.settings,style: theme.titleLarge,), centerTitle: true),
+      appBar: AppBar(
+        title: Text(l10n!.settings, style: theme.titleLarge),
+        centerTitle: true,
+      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         children: [
-          // Card(
-          //   elevation: 0.5,
-          //   child: ListTile(
-          //     trailing: Switch(
-          //       inactiveTrackColor: AppColors.primary,
-          //       activeColor: AppColors.primary,
-          //       value: themeProvider.themeMode == ThemeMode.dark,
-          //       onChanged: (value) {
-          //         themeProvider.toggleTheme(value);
-          //       },
-          //     ),
-          //     title: Text(
-          //       "Change Theme",
-          //       style: Theme.of(context)
-          //           .textTheme
-          //           .titleMedium!,
-          //     ),
-          //   ),
-          // ),
           ProfileButton(
             title: l10n.changePassword,
             function: () {
@@ -84,6 +69,10 @@ class _SettingScreenState extends State<SettingScreen> {
             function: () async {
               try {
                 await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const AuthWrapper()),
+                  (Route<dynamic> route) => false,
+                );
                 if (kDebugMode) {
                   print("user signed out");
                 }

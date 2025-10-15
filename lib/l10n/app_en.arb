@@ -23,6 +23,14 @@
   "paymentSuccess": "Payment success",
   "insufficientFunds": "Insufficient funds",
   "pleaseFillThis": "Please fill this",
+  "electricity": "Electricity",
+  "water": "Water",
+  "internet": "Internet",
+  "gas": "Gas",
+  "vodafone": "Vodafone",
+  "orange": "Orange",
+  "we": "We",
+  "etisalat": "Etisalat",
   "topUpBalance": "Top Up Balance",
   "addMoney": "Add Money",
   "addMoneyConfirmation": "Add Money Confirmation",
@@ -67,5 +75,14 @@
     "placeholders": {
       "error": {}
     }
-  }
+  },
+  "password": "Password",
+  "forgetPassword": "Forget Password ?",
+  "login": "Login",
+  "dontHaveAccount": "Don't have an account",
+  "create": "Create!",
+  "register": "Register",
+  "alreadyHaveAccount": "Already have an account",
+  "loginFailed": "Login failed Please check your email or password",
+  "registerFailed": "Register failed please check all fields"
 }

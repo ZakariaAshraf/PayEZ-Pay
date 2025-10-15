@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import '../core/config/utils/app_colors.dart';
 
 class SettingsToggleButton extends StatelessWidget {
   final String title;

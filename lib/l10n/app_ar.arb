@@ -45,6 +45,14 @@
   "fullName": "الاسم الكامل",
   "phoneNumber": "رقم الهاتف",
   "saveChanges": "حفظ التغييرات",
+  "electricity": "الكهرباء",
+  "water": "المياه",
+  "internet": "الانترنت",
+  "vodafone": "فودافون",
+  "orange": "اورنج",
+  "we": "وي",
+  "etisalat": "اتصالات",
+  "gas": "الغاز",
   "profileUpdatedSuccessfully": "تم تحديث الملف الشخصي بنجاح!",
   "egp": "جنيه",
   "goodMorning": "صباح الخير!",
@@ -56,7 +64,7 @@
     }
   },
   "totalBalance": "الرصيد الإجمالي",
-  "inviteFriendEarnCashback": "ادع صديقاً وكلاهما يحصل على استرداد نقدي",
+  "inviteFriendEarnCashback": "ادع صديقاً وستحصلان على استرداد نقدي",
   "inviteFriend": "ادع صديقاً -->",
   "recentTransactions": "المعاملات الأخيرة",
   "seeAll": "عرض الكل",
@@ -67,5 +75,14 @@
     "placeholders": {
       "error": {}
     }
-  }
+  },
+  "password": "كلمة المرور",
+  "forgetPassword": "نسيت كلمة المرور؟",
+  "login": "تسجيل الدخول",
+  "dontHaveAccount": "ليس لديك حساب",
+  "create": "إنشاء!",
+  "register": "تسجيل",
+  "alreadyHaveAccount": "لديك حساب بالفعل",
+  "loginFailed": "فشل تسجيل الدخول يرجى التحقق من البريد الإلكتروني أو كلمة المرور",
+  "registerFailed": "فشل التسجيل يرجى التحقق من جميع الحقول"
 }

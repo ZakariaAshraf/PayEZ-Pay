@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:payez_pay/config/utils/app_colors.dart';
 import 'package:payez_pay/features/add_money/presentation/cubit/add_funds_cubit.dart';
 import 'package:payez_pay/widgets/primary_button.dart';
 import 'package:payez_pay/l10n/app_localizations.dart';
 
+import '../../../../core/config/utils/app_colors.dart';
 import '../../../../widgets/custom_toast_widget.dart';
 
 class AddMoneyScreen extends StatelessWidget {
@@ -133,7 +133,7 @@ class AddMoneyScreen extends StatelessWidget {
         if (state is AddFundsSuccess) {
           CustomToastWidget.show(
             context: context,
-            title: l10n!.updateSuccess,
+            title: l10n.updateSuccess,
             iconPath: "assets/icons/logo.png",
           );
           Navigator.pop(context);
@@ -161,7 +161,7 @@ class AddMoneyScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      l10n!.addMoney,
+                      l10n.addMoney,
                       style: theme.titleSmall!.copyWith(color: Colors.grey),
                     ),
                   ),
@@ -182,7 +182,7 @@ class AddMoneyScreen extends StatelessWidget {
                         color: Colors.grey,
                         size: 30,
                       ),
-                      suffix: Text("🇪🇬 ${l10n!.egp}"),
+                      suffix: Text("🇪🇬 ${l10n.egp}"),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -192,7 +192,7 @@ class AddMoneyScreen extends StatelessWidget {
                       ),
                     ),
                     validator: (val) =>
-                        val == null || val.isEmpty ? l10n!.pleaseFillThis : null,
+                        val == null || val.isEmpty ? l10n.pleaseFillThis : null,
                   ),
                 ),
               ],
@@ -204,7 +204,7 @@ class AddMoneyScreen extends StatelessWidget {
                 builder: (context, state) {
                   final isLoading = state is AddFundsLoading;
                   return PrimaryButton(
-                    title: isLoading ? l10n!.processing : l10n.continuee,
+                    title: isLoading ? l10n.processing : l10n.continuee,
                     onTap: () {
                       showBottomSheet(
                         onTap: () {
