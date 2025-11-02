@@ -31,6 +31,7 @@ class TransactionScreen extends StatelessWidget {
               ),
             ),
             ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: transactions.length,
               itemBuilder: (context, index) =>
