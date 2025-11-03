@@ -28,6 +28,27 @@ This project was built with a modern, scalable, and professional tech stack.
 * **Internationalization:** Flutter Localization (l10n)
 * **Routing:** MaterialPageRoute for clear and simple navigation.
 
+## 📱 App Showcase
+
+This section demonstrates the core user flows of the application through animated GIFs.
+
+<table>
+  <tr>
+    <td align="center">
+      <h3>🏠 Home & Real-time Balance</h3>
+      <img src="https://raw.githubusercontent.com/ZakariaAshraf/PayEZ-Pay/master/HomeflowGif.gif" alt="Home Dashboard" width="300">
+    </td>
+    <td align="center">
+      <h3>💰 Add Money</h3>
+      <img src="https://raw.githubusercontent.com/ZakariaAshraf/PayEZ-Pay/master/TopUpflowGif.gif" alt="Add Money & Payments" width="300">
+    </td>
+    <td align="center">
+      <h3>💸 Bill Pay</h3>
+      <img src="https://raw.githubusercontent.com/ZakariaAshraf/PayEZ-Pay/master/PayBillsflowGif.gif" alt="Add Money & Payments" width="300">
+    </td>
+  </tr>
+</table>
+
 ## 🚀 Getting Started
 
 To clone and run this project locally, follow these steps:
