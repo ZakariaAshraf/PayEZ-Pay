@@ -1,11 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:payez_pay/data/transaction_model.dart';
 
 class TransactionsService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final String _usersCollection = 'users';
 
+  final bool _isAuthenticated = false;
+  final LocalAuthentication _auth = LocalAuthentication();
+
+  Future<bool> integrateBiometrics() async {
+    if (!_isAuthenticated) {
+      final bool canAuthenticateWithBiometric = await _auth.canCheckBiometrics;
+      try {
+        if (canAuthenticateWithBiometric) {
+          final didAuthenticate = await _auth.authenticate(
+            localizedReason: "please authenticate to make your transaction",
+          );
+          return didAuthenticate;
+        }
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print(e.toString());
+        }
+      }
+    } else {
+      return _isAuthenticated;
+    }
+    return false;
+  }
   Stream<List<TransactionModel>> getTransactionHistory() {
     String userId = FirebaseAuth.instance.currentUser!.uid;
     final transactionsRef = _db

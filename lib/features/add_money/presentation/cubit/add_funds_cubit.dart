@@ -11,11 +11,15 @@ class AddFundsCubit extends Cubit<AddFundsState> {
 
   addFunds({required double amountToAdd}) async {
     emit(AddFundsLoading());
-    try {
-      await service.addFundsToWallet(amountToAdd: amountToAdd);
-    } on Exception catch (e) {
-      emit(AddFundsError(errorMessage: e.toString()));
+    if (await service.integrateBiometrics()) {
+      try {
+        await service.addFundsToWallet(amountToAdd: amountToAdd);
+        emit(AddFundsSuccess());
+      } on Exception catch (e) {
+        emit(AddFundsError(errorMessage: e.toString()));
+      }
+    } else {
+      emit(AddFundsError(errorMessage: "Please Authenticate first"));
     }
-    emit(AddFundsSuccess());
   }
 }

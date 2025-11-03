@@ -9,16 +9,23 @@ class PayBillsCubit extends Cubit<PayBillsState> {
   PayBillsCubit() : super(PayBillsInitial());
   TransactionsService service = TransactionsService();
 
-  payBill({required double paymentAmount, required String billDescription,}) async {
+  payBill({
+    required double paymentAmount,
+    required String billDescription,
+  }) async {
     emit(PayBillsLoading());
-    try {
-      await service.processBillPayment(
-        paymentAmount: paymentAmount,
-        billDescription: billDescription,
-      );
-      emit(PayBillsSuccess());
-    } on Exception catch (e) {
-      emit(PayBillsError(errorMessage: e.toString()));
+    if (await service.integrateBiometrics()) {
+      try {
+        await service.processBillPayment(
+          paymentAmount: paymentAmount,
+          billDescription: billDescription,
+        );
+        emit(PayBillsSuccess());
+      } on Exception catch (e) {
+        emit(PayBillsError(errorMessage: e.toString()));
+      }
+    } else {
+      emit(PayBillsError(errorMessage: "please Please Authenticate first"));
     }
   }
 }
