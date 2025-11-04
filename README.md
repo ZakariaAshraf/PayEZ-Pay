@@ -11,6 +11,7 @@ PayEZ Pay is a portfolio-focused mobile application built with Flutter, simulati
 * **Wallet Top-Up:** A simulated feature allowing users to add funds to their wallet, demonstrating secure balance update logic.
 * **Bill Payments:** A core FinTech feature where users can pay for mock services, with transactions only succeeding if the wallet balance is sufficient.
 * **Profile & Settings Management:** Users can manage their profile, change their password, and log out securely.
+* **Add Biometric Authentcation:** to make any tranaction you must add your phone main authentication like PIN or another biometric auth  
 * **Localization (i18n):** The app supports multiple languages (English & Arabic) using Flutter's l10n package.
 * **Dynamic Theming:** Users can switch between a clean Light Mode and a sleek Dark Mode.
 
