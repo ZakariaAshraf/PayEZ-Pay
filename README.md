@@ -62,7 +62,7 @@ To clone and run this project locally, follow these steps:
 ### Clone the Repository:
 
 ```bash
-git clone [https://github.com/ZakariaAshraf/PayEZ-Pay.git](https://github.com/ZakariaAshraf/PayEZ-Pay.git)
+git clone https://github.com/ZakariaAshraf/PayEZ-Pay.git
 cd PayEZ-Pay
 ```
 
